@@ -20,25 +20,24 @@ import diamond.model.cyborg.diagram.Diagram;
 public class Load implements ActionListener {
     Context context;
     Component parentComponent;
+    Loader loader;
 
-    public Load(Context context, Component parent) {
+    public Load(Context context, Component parent, Loader loader) {
         this.context = context;
         this.parentComponent = parent;
+        this.loader = loader;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
-        String path = null;
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
-            path = chooser.getSelectedFile().getPath();
         }
-        Diagram diagram = new LoaderXML().load(path);
+        Diagram diagram = loader.load(chooser);
         if (diagram == null) {
             return;
         }
         context.setDiagram(diagram);
     }
-
 }

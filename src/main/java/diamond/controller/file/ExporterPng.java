@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.view.ui.screen.ScreenPage;
@@ -23,23 +24,6 @@ public class ExporterPng implements Exporter {
 
     public ExporterPng(ScreenPage screen) {
         this.screen = screen;
-    }
-
-    @Override
-    public boolean export(Diagram diagram, String filepath) {
-        for (int i = 0; i < screen.maxPageNo() + 1; ++i) {
-            BufferedImage image = getImage();
-            String pathname = fileName(filepath, i);
-            File file = new File(pathname + formatName());
-            try {
-                ImageIO.write(image, formatName(), file);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-            screen.nextPage(1);
-        }
-        return true;
     }
 
     public String fileName(String filePath, int i) {
@@ -61,5 +45,28 @@ public class ExporterPng implements Exporter {
         screen.paintComponents(g2);
         g2.dispose();
         return image;
+    }
+
+    @Override
+    public boolean export(Diagram diagram, JFileChooser chooser) {
+        String filepath = chooser.getSelectedFile().getPath();
+        for (int i = 0; i < screen.maxPageNo() + 1; ++i) {
+            BufferedImage image = getImage();
+            String pathname = fileName(filepath, i);
+            File file = new File(pathname + formatName());
+            try {
+                ImageIO.write(image, formatName(), file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            screen.nextPage(1);
+        }
+        return true;
+    }
+
+    @Override
+    public void set(JFileChooser chooser) {
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     }
 }

@@ -23,12 +23,12 @@ import diamond.model.math.Constants;
  */
 public class MirrorTest {
     private final static double l = 100.0;
-    private static double s0 = 0.34;
-    private static double x0 = 252.44;
-    private static double y0 = 424.676;
-    private static double s1 = s0 + Math.PI;
-    private static double x1 = x0 + l * Math.cos(s0);
-    private static double y1 = y0 + l * Math.sin(s0);
+    private final static double s0 = 0.34;
+    private final static double x0 = 252.44;
+    private final static double y0 = 424.676;
+    private final static double s1 = s0 + Math.PI;
+    private final static double x1 = x0 + l * Math.cos(s0);
+    private final static double y1 = y0 + l * Math.sin(s0);
 
     private final static double xEx = x0
             - (x0 * Math.cos(-2 * s0) - y0 * Math.sin(-2 * s0));
@@ -83,6 +83,7 @@ public class MirrorTest {
         mirrorTest(v0, d);
     }
 
+    @SuppressWarnings("deprecation")
     private void mirrorTest(Vertex v0, Direction d) {
         Vertex v1 = d.ver(v0);
         MirrorPlain m = new MirrorPlain(

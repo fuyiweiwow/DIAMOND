@@ -17,24 +17,25 @@ import diamond.controller.Context;
  *
  */
 public class Export implements ActionListener {
-    Context context;
-    Component parentComponent;
+    private Context context;
+    private Component parentComponent;
+    private Exporter exporter;
+    private JFileChooser chooser = new JFileChooser();
 
-    public Export(Context context, Component parent) {
+    public Export(Context context, Component parent, Exporter exporter) {
         this.context = context;
         this.parentComponent = parent;
+        this.exporter = exporter;
+        exporter.set(chooser);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JFileChooser chooser = new JFileChooser();
-        String path = null;
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
-            path = chooser.getSelectedFile().getPath();
+        } else {
+            return;
         }
-        ExporterXml exporterXML = new ExporterXml();
-        exporterXML.export(context.getDiagram(), path);
+        exporter.export(context.getDiagram(), chooser);
     }
-
 }

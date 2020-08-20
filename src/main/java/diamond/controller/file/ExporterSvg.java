@@ -7,6 +7,8 @@ package diamond.controller.file;
 import java.awt.Dimension;
 import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
+
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.svggen.SVGGraphics2DIOException;
@@ -30,7 +32,8 @@ public class ExporterSvg implements Exporter {
     }
 
     @Override
-    public boolean export(Diagram diagram, String filepath) {
+    public boolean export(Diagram diagram, JFileChooser chooser) {
+        String filepath = chooser.getSelectedFile().getPath();
         LinkedList<Step> steps = diagram.getSteps();
         for (Step step : steps) {
             Document doc = GenericDOMImplementation
@@ -51,6 +54,11 @@ public class ExporterSvg implements Exporter {
             }
         }
         return true;
+    }
+
+    @Override
+    public void set(JFileChooser chooser) {
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     }
 
 }
