@@ -13,7 +13,7 @@ import diamond.model.math.Util;
  * @author Kei Morisue
  *
  */
-public abstract class D1 {
+public class D1 {
     protected Vertex v0;
     protected Vertex v1;
 
@@ -75,7 +75,7 @@ public abstract class D1 {
         if (Fuzzy.isSmall(det)) {
             return null;
         }
-        Direction d = v0.dir(segment.getV0()).scale(-1.0 / det);
+        Direction d = v0.dir(segment.v0).scale(-1.0 / det);
         double p0 = d1.n().prod(d);
         double p1 = d0.n().prod(d);
         if (Util.in(p0, .0, 1.0) && Util.in(p1, .0, 1.0)) {

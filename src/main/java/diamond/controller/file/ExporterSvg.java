@@ -5,6 +5,7 @@
 package diamond.controller.file;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
@@ -32,8 +33,7 @@ public class ExporterSvg implements Exporter {
     }
 
     @Override
-    public boolean export(Diagram diagram, JFileChooser chooser) {
-        String filepath = chooser.getSelectedFile().getPath();
+    public File export(Diagram diagram, String path) {
         LinkedList<Step> steps = diagram.getSteps();
         for (Step step : steps) {
             Document doc = GenericDOMImplementation
@@ -45,15 +45,15 @@ public class ExporterSvg implements Exporter {
             g2d.setSVGCanvasSize(new Dimension(w, h));
             step.draw(g2d, screen);
             try {
-                g2d.stream(filepath + "/"
+                g2d.stream(path + "/"
                         + String.format("%03d", steps.indexOf(step) + 1)
                         + ".svg");
             } catch (SVGGraphics2DIOException e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
-        return true;
+        return null;
     }
 
     @Override

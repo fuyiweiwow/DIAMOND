@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
@@ -28,11 +28,11 @@ public class SegmentCrease extends SegmentBase {
     }
 
     public SegmentCrease(SegmentBase segment) {
-        super(segment.v0, segment.v1);
+        super(segment.w0, segment.w1);
         this.setType(segment.type);
     }
 
-    public SegmentCrease(Vertex v0, Vertex v1, SegmentType type) {
+    public SegmentCrease(Wex v0, Wex v1, SegmentType type) {
         super(v0, v1);
         this.setType(type);
     }
@@ -41,20 +41,24 @@ public class SegmentCrease extends SegmentBase {
     public void draw(Graphics2D g2d, ScreenStep screen) {
         if (type == SegmentType.CREASE) {
             double clip = screen.diagram().getStyleSegment().getClip();
+            Wex[] w = clip(clip);
             g2d.draw(ShapeBuilder.build(
-                    clip(v0, screen, clip),
-                    clip(v1, screen, clip)));
+                    w[0].getQ(),
+                    w[1].getQ()));
         } else {
-            g2d.draw(ShapeBuilder.build(this));
+            g2d.draw(ShapeBuilder.build(
+                    w0.getQ(),
+                    w1.getQ()));
         }
     }
 
-    private Vertex clip(Vertex v, ScreenStep screen, double clip) {
-        if (face.isBoundary(v)) {
-            return v.scale(clip, c());
-        } else {
-            return v;
-        }
+    private Wex[] clip(double clip) {
+        Vertex c = w0.getP().c(w1.getP());
+        Vertex d = w0.getQ().c(w1.getQ());
+        Wex u0 = (face.isBoundary(w0)) ? w0.scale(clip, c, d) : w0;
+        Wex u1 = (face.isBoundary(w1)) ? w1.scale(clip, c, d) : w1;
+        Wex[] v0v1 = { u0, u1 };
+        return v0v1;
     }
 
     @Override
@@ -63,8 +67,7 @@ public class SegmentCrease extends SegmentBase {
         StyleSegment styleSegment = diagram.getStyleSegment();
         g2d.setColor(styleSegment.getColor(type));
         float scale = (float) G2DUtil.getScale(g2d);
-        g2d.setStroke(
-                styleSegment.strokeCrease(scale, type));
+        g2d.setStroke(styleSegment.strokeCrease(scale, type));
     }
 
     @Override
@@ -76,21 +79,11 @@ public class SegmentCrease extends SegmentBase {
         g2d.setStroke(styleSegment.strokeCrease(scale, type));
     }
 
-    public SegmentCrease mirror() {
-        AbstractMirror mirror = face.getMirror();
-        SegmentCrease crease = new SegmentCrease(
-                mirror.apply(v0),
-                mirror.apply(v1),
-                type);
-        crease.face = face;
-        return crease;
-    }
-
     @Override
-    public void split(Vertex v) {
+    public void split(Wex v) {
         face.remove(this);
-        face.add(new SegmentCrease(v0, v, type));
-        face.add(new SegmentCrease(v, v1, type));
+        face.add(new SegmentCrease(w0, v, type));
+        face.add(new SegmentCrease(v, w1, type));
     }
 
     public void setFace(Face face) {

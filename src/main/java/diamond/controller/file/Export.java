@@ -7,6 +7,7 @@ package diamond.controller.file;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 
@@ -21,6 +22,7 @@ public class Export implements ActionListener {
     private Component parentComponent;
     private Exporter exporter;
     private JFileChooser chooser = new JFileChooser();
+    protected File latestFile;
 
     public Export(Context context, Component parent, Exporter exporter) {
         this.context = context;
@@ -31,11 +33,17 @@ public class Export implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (latestFile != null) {
+            exporter.export(context.getDiagram(), latestFile.getAbsolutePath());
+            return;
+        }
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
         } else {
             return;
         }
-        exporter.export(context.getDiagram(), chooser);
+        latestFile = exporter.export(
+                context.getDiagram(),
+                chooser.getSelectedFile().getPath());
     }
 }

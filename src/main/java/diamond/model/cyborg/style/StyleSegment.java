@@ -7,9 +7,7 @@ package diamond.model.cyborg.style;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
-import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentType;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.Util;
 
 /**
@@ -47,10 +45,6 @@ public class StyleSegment {
 
     public BasicStroke strokePointed(float scale) {
         return new BasicStroke(widthPointed / scale, CAP, JOIN);
-    }
-
-    public double getClipped(Face face, Vertex v1) {
-        return (face.isBoundary(v1)) ? clip : 1.0;
     }
 
     public Color getColor(SegmentType type) {

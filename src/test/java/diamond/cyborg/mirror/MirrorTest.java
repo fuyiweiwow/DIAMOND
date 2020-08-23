@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentType;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.m.MirrorPlain;
 import diamond.model.math.Constants;
 
@@ -86,8 +85,7 @@ public class MirrorTest {
     @SuppressWarnings("deprecation")
     private void mirrorTest(Vertex v0, Direction d) {
         Vertex v1 = d.ver(v0);
-        MirrorPlain m = new MirrorPlain(
-                new SegmentCrease(v0, v1, SegmentType.CREASE));
+        MirrorPlain m = new MirrorPlain(new D1(v0, v1));
         assertEquals(xEx, m.getB().getX(), Constants.EPS);
         assertEquals(yEx, m.getB().getY(), Constants.EPS);
     }

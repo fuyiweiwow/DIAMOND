@@ -12,7 +12,7 @@ import diamond.Config;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphics;
@@ -62,7 +62,7 @@ public class PointerCyborg<T extends Cyborg> extends Observable
         if (type == Face.class) {
             return (Collection<T>) step.getFaces();
         }
-        if (type == Vertex.class) {
+        if (type == Wex.class) {
             return (Collection<T>) step.getVertices();
         }
         if (type == SegmentBase.class) {
@@ -96,7 +96,7 @@ public class PointerCyborg<T extends Cyborg> extends Observable
             g2d.setColor(StyleFace.POINTED);
             return;
         }
-        if (type == Vertex.class) {
+        if (type == Wex.class) {
             g2d.setColor(StyleVertex.POINTED);
             return;
         }

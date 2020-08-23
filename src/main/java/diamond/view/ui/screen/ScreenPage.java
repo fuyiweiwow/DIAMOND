@@ -10,6 +10,8 @@ import java.util.Observable;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
+import diamond.model.cyborg.geom.d0.Wex;
+import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.style.StylePage;
 import diamond.view.ui.screen.style.Skin;
 
@@ -44,6 +46,11 @@ public final class ScreenPage extends AbstractScreen {
 
     @Override
     protected void drawPointed(Graphics2D g2d) {
+    }
+
+    @Override
+    public Vertex v(Wex w) {
+        return w.getQ();
     }
 
     public int maxPageNo() {

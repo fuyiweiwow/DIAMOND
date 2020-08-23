@@ -7,12 +7,8 @@ package diamond.controller.action.state;
 import java.util.Stack;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d1.SegmentBase;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.MirrorPlain;
 
 /**
  * @author Kei Morisue
@@ -33,17 +29,17 @@ public class AddSegments extends AbstractPaintState {
 
     @Override
     protected void executeAction() {
-        Step step = context.getDiagram().getStep();
-        Face face = step.getFaces().get(0);//TODO
-        s0 = segments.pop();
-        MirrorPlain mirror = new MirrorPlain(s0.getV0(), s0.getV1());
-        for (SegmentBase s : segments) {
-            face.add(new SegmentCrease(
-                    mirror.apply(s.getV0()),
-                    mirror.apply(s.getV1()),
-                    s.getType()));//TODO
-        }
-        step.update();
+        //        Step step = context.getDiagram().getStep();
+        //        Face face = step.getFaces().get(0);//TODO
+        //        s0 = segments.pop();
+        //        MirrorPlain mirror = new MirrorPlain(s0.getV0(), s0.getV1());
+        //        for (SegmentBase s : segments) {
+        //            face.add(new SegmentCrease(
+        //                    s.getW0().apply(mirror),
+        //                    s.getW1().apply(mirror),
+        //                    s.getType()));//TODO
+        //        }
+        //        step.update();
         context.initialize();
     }
 

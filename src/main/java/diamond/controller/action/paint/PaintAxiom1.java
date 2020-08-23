@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.controller.action.state.AddSegment;
 import diamond.controller.action.state.PickCyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 
 /**
  * @author Kei Morisue
@@ -21,8 +21,8 @@ public class PaintAxiom1 extends AbstractPaintActionMouse {
     public PaintAxiom1(Context context) {
         this.context = context;
         initialize(
-                new PickCyborg<Vertex>(context, Vertex.class),
-                new PickCyborg<Vertex>(context, Vertex.class),
+                new PickCyborg<Wex>(context, Wex.class),
+                new PickCyborg<Wex>(context, Wex.class),
                 new AddSegment(context));
     }
 

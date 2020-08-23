@@ -14,6 +14,7 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.PointerCyborg;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d2.Face;
@@ -52,9 +53,14 @@ public final class ScreenMain extends AbstractScreen {
 
     @Override
     protected void drawPointed(Graphics2D g2d) {
-        pointed(g2d, Vertex.class);
+        pointed(g2d, Wex.class);
         pointed(g2d, SegmentBase.class);
         pointed(g2d, Face.class);
+    }
+
+    @Override
+    public Vertex v(Wex w) {
+        return w.getP();
     }
 
     private <T extends Cyborg> void pointed(Graphics2D g2d, Class<T> type) {
@@ -67,4 +73,5 @@ public final class ScreenMain extends AbstractScreen {
         picker.setG2d(g2d, this);
         picker.draw(g2d, this);
     }
+
 }

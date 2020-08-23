@@ -40,8 +40,6 @@ public class LoaderXML implements Loader {
         } catch (FileNotFoundException e) {
             Util.warn("no_file");
             return null;
-        } catch (NullPointerException e) {
-            return null;
         }
     }
 

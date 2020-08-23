@@ -15,6 +15,7 @@ import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
+import diamond.view.ui.frame.PreviewFrame;
 import diamond.view.ui.frame.TreeFrame;
 
 /**
@@ -27,21 +28,30 @@ public class MainEdit extends JMenu {
     public MainEdit(Context context) {
         super(Labels.get("main_menu_edit"));
         this.context = context;
-        add(buildMeta(context));
+        add(buildTree(context));
+        add(buildRun(context));
     }
 
-    private JMenuItem buildMeta(Context context) {
-        JMenuItem item = new JMenuItem(Labels.get("main_menu_edit_tree"));
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
+    private JMenuItem buildRun(Context context2) {
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_edit_preview"));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
                 ActionEvent.CTRL_MASK));
-        item.addActionListener(new Action(this));
+        item.addActionListener(new Preview(this));
         return item;
     }
 
-    private class Action implements ActionListener {
+    private JMenuItem buildTree(Context context) {
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_edit_tree"));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
+                ActionEvent.CTRL_MASK));
+        item.addActionListener(new Tree(this));
+        return item;
+    }
+
+    private class Tree implements ActionListener {
         private Component parent;
 
-        public Action(Component parent) {
+        public Tree(Component parent) {
             this.parent = parent;
         }
 
@@ -49,6 +59,18 @@ public class MainEdit extends JMenu {
         public void actionPerformed(ActionEvent e) {
             new TreeFrame(context, parent);
         }
+    }
 
+    private class Preview implements ActionListener {
+        private Component parent;
+
+        public Preview(Component parent) {
+            this.parent = parent;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new PreviewFrame(context, parent);
+        }
     }
 }

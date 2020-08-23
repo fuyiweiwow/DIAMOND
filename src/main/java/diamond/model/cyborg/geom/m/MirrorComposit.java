@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg.geom.m;
 
-import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.D1;
 
 /**
  * @author Kei Morisue
@@ -17,7 +17,7 @@ public class MirrorComposit extends AbstractMirror {
         super();
     }
 
-    public MirrorComposit(SegmentBase segment, AbstractMirror mirror) {
+    public MirrorComposit(D1 segment, AbstractMirror mirror) {
         compose(new MirrorPlain(segment), mirror);
     }
 

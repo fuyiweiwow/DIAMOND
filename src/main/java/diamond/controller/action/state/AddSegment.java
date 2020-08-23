@@ -9,7 +9,7 @@ import java.util.Stack;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d2.CreaseAdder;
 import diamond.model.cyborg.geom.d2.Face;
@@ -20,8 +20,8 @@ import diamond.model.cyborg.geom.d2.Face;
  */
 public class AddSegment extends AbstractPaintState {
     private Context context;
-    private Vertex v0;
-    private Vertex v1;
+    private Wex v0;
+    private Wex v1;
 
     public AddSegment(Context context) {
         this.context = context;
@@ -43,8 +43,8 @@ public class AddSegment extends AbstractPaintState {
 
     @Override
     protected boolean tryAction() {
-        PickerCyborg<Vertex> picker = context.getPicker(Vertex.class);
-        Stack<Vertex> picked = picker.get();
+        PickerCyborg<Wex> picker = context.getPicker(Wex.class);
+        Stack<Wex> picked = picker.get();
         this.v0 = picked.get(0);//TODO
         this.v1 = picked.get(1);
         return v1 != v0;

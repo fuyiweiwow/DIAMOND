@@ -5,7 +5,7 @@
 package diamond.model.cyborg.diagram.step;
 
 import diamond.Config;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
@@ -19,22 +19,22 @@ public class StepBuilder {
     private static final double a = Config.PAPER_SIZE;
     private static final double b = a * (2.0 - Math.sqrt(2.0));
 
-    private static final Vertex O = new Vertex(.0, .0);
+    private static final Wex O = new Wex(.0, .0);
 
-    private static final Vertex L = new Vertex(-a, .0);
-    private static final Vertex U = new Vertex(.0, a);
-    private static final Vertex B = new Vertex(.0, -a);
-    private static final Vertex R = new Vertex(a, .0);
+    private static final Wex L = new Wex(-a, .0);
+    private static final Wex U = new Wex(.0, a);
+    private static final Wex B = new Wex(.0, -a);
+    private static final Wex R = new Wex(a, .0);
 
-    private static final Vertex UL = new Vertex(-a, a);
-    private static final Vertex UR = new Vertex(a, a);
-    private static final Vertex BL = new Vertex(-a, -a);
-    private static final Vertex BR = new Vertex(a, -a);
+    private static final Wex UL = new Wex(-a, a);
+    private static final Wex UR = new Wex(a, a);
+    private static final Wex BL = new Wex(-a, -a);
+    private static final Wex BR = new Wex(a, -a);
 
-    private static final Vertex LL = new Vertex(-b, .0);
-    private static final Vertex UU = new Vertex(.0, b);
-    private static final Vertex BB = new Vertex(.0, -b);
-    private static final Vertex RR = new Vertex(b, .0);
+    private static final Wex LL = new Wex(-b, .0);
+    private static final Wex UU = new Wex(.0, b);
+    private static final Wex BB = new Wex(.0, -b);
+    private static final Wex RR = new Wex(b, .0);
 
     public static Step step0() {
         @SuppressWarnings("deprecation")

@@ -48,21 +48,20 @@ public class ExporterPng implements Exporter {
     }
 
     @Override
-    public boolean export(Diagram diagram, JFileChooser chooser) {
-        String filepath = chooser.getSelectedFile().getPath();
+    public File export(Diagram diagram, String path) {
         for (int i = 0; i < screen.maxPageNo() + 1; ++i) {
             BufferedImage image = getImage();
-            String pathname = fileName(filepath, i);
+            String pathname = fileName(path, i);
             File file = new File(pathname + formatName());
             try {
                 ImageIO.write(image, formatName(), file);
             } catch (IOException e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
             screen.nextPage(1);
         }
-        return true;
+        return null;
     }
 
     @Override

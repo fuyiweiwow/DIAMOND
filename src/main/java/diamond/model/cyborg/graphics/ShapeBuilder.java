@@ -10,10 +10,9 @@ import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.SegmentBase;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentEdge;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -29,38 +28,18 @@ public class ShapeBuilder {
                 size);
     }
 
-    public static GeneralPath build(Face face) {
+    public static GeneralPath build(Face face, AbstractScreen screen) {
         GeneralPath outline = new GeneralPath();
-        LinkedList<Vertex> vertices = face.getVertices();
-        Vertex v0 = vertices.get(0);
+        LinkedList<Wex> vertices = face.getWexes();
+        Wex w0 = vertices.get(0);
+        Vertex v0 = screen.v(w0);
         outline.moveTo(v0.getX(), v0.getY());
-        for (Vertex v : vertices) {
+        for (Wex w : vertices) {
+            Vertex v = screen.v(w);
             outline.lineTo(v.getX(), v.getY());
         }
         outline.closePath();
         return outline;
-    }
-
-    public static Line2D.Double build(SegmentEdge mV) {
-        Vertex v0 = mV.getV0();
-        Vertex v1 = mV.getV1();
-        return build(v0, v1);
-    }
-
-    public static Line2D.Double build(SegmentCrease crease, double clipped0,
-            double clipped1) {
-        Vertex v0 = crease.getV0();
-        Vertex v1 = crease.getV1();
-        Vertex pivot = v1.c(v0);
-        v0 = v0.scale(clipped0, pivot);
-        v1 = v1.scale(clipped1, pivot);
-        return build(v0, v1);
-    }
-
-    public static Line2D.Double build(SegmentBase segment) {
-        Vertex v0 = segment.getV0();
-        Vertex v1 = segment.getV1();
-        return build(v0, v1);
     }
 
     public static Line2D.Double build(Vertex v0, Vertex v1) {

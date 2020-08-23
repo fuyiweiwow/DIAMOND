@@ -9,7 +9,7 @@ import java.util.Observer;
 
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.PointerCyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphics;
@@ -22,7 +22,7 @@ public class Pointer extends Observable implements Observer {
     private PointerCyborg<Face> face = new PointerCyborg<>(Face.class);
     private PointerCyborg<SegmentBase> segment = new PointerCyborg<>(
             SegmentBase.class);
-    private PointerCyborg<Vertex> vertex = new PointerCyborg<>(Vertex.class);
+    private PointerCyborg<Wex> vertex = new PointerCyborg<>(Wex.class);
 
     public Pointer() {
         face.addObserver(this);
@@ -32,7 +32,7 @@ public class Pointer extends Observable implements Observer {
 
     @SuppressWarnings("unchecked")
     public <T extends Cyborg & Graphics> PointerCyborg<T> get(Class<T> type) {
-        if (type == Vertex.class) {
+        if (type == Wex.class) {
             return (PointerCyborg<T>) vertex;
         }
         if (type == SegmentBase.class) {

@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg.geom.d2;
 
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 
 /**
  * @author Kei Morisue
@@ -12,15 +12,15 @@ import diamond.model.cyborg.geom.d0.Vertex;
  */
 public class FaceBuilder {
     public static Face square(double width) {
-        return polygon(new Vertex(width, width),
-                new Vertex(-width, width),
-                new Vertex(-width, -width),
-                new Vertex(width, -width));
+        return polygon(new Wex(width, width),
+                new Wex(-width, width),
+                new Wex(-width, -width),
+                new Wex(width, -width));
     }
 
-    public static Face polygon(Vertex... vs) {
+    public static Face polygon(Wex... vs) {
         Face face = new Face();
-        for (Vertex v : vs) {
+        for (Wex v : vs) {
             face.add(v);
         }
         return face;

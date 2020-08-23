@@ -33,6 +33,8 @@ public class Load implements ActionListener {
         JFileChooser chooser = new JFileChooser();
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
+        } else {
+            return;
         }
         Diagram diagram = loader.load(chooser);
         if (diagram == null) {

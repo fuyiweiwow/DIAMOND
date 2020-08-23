@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.d0.Wex;
+import diamond.model.cyborg.geom.d0.Vertex;
 
 /**
  * @author Kei Morisue
@@ -49,6 +51,8 @@ public abstract class AbstractScreen extends JPanel
     protected abstract void draw(Graphics2D g2d);
 
     protected abstract void drawPointed(Graphics2D g2d);
+
+    public abstract Vertex v(Wex w);
 
     public Diagram diagram() {
         return context.getDiagram();

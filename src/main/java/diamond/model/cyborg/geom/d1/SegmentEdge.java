@@ -8,9 +8,8 @@ import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
@@ -29,7 +28,7 @@ public class SegmentEdge extends SegmentBase {
         super();
     }
 
-    public SegmentEdge(Face f0, Face f1, Vertex v0, Vertex v1) {
+    public SegmentEdge(Face f0, Face f1, Wex v0, Wex v1) {
         super(v0, v1);
         this.type = SegmentType.VALLEY;
         this.f0 = f0;
@@ -52,29 +51,18 @@ public class SegmentEdge extends SegmentBase {
         g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
     }
 
-    public SegmentEdge mirror() {
-        AbstractMirror mirror = f0.getMirror();
-        SegmentEdge e = new SegmentEdge(
-                f0,
-                f1,
-                mirror.apply(v0),
-                mirror.apply(v1));
-        e.setType(type);
-        return e;
-    }
-
     @Deprecated
     @Override
-    public void split(Vertex v) {
+    public void split(Wex v) {
     }
 
-    public void split(Vertex v, Step step) {
-        f0.add(v, v1, v0);
-        f1.add(v, v1, v0);
+    public void split(Wex v, Step step) {
+        f0.add(v, w1, w0);
+        f1.add(v, w1, w0);
         step.remove(this);
         step.remove(this);
-        step.link(f0, f1, v, v0);
-        step.link(f0, f1, v, v1);
+        step.link(f0, f1, v, w0);
+        step.link(f0, f1, v, w1);
     }
 
     public void setType(boolean isM) {

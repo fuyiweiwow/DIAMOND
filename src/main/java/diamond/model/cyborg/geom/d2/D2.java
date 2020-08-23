@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.math.Fuzzy;
 import diamond.model.math.Util;
 
@@ -16,29 +17,19 @@ import diamond.model.math.Util;
  *
  */
 public class D2 {
-    protected LinkedList<Vertex> vertices = new LinkedList<Vertex>();
+    protected LinkedList<Wex> wexes = new LinkedList<Wex>();
 
     protected D2() {
     }
 
-    public Vertex c() {
-        double x = .0;
-        double y = .0;
-        for (Vertex v : vertices) {
-            x += v.getX();
-            y += v.getY();
-        }
-        int n = vertices.size();
-        return new Vertex(x / n, y / n);
-    }
-
-    public boolean isBoundary(Vertex v) {
-        Vertex v0 = vertices.get(0);
-        int size = vertices.size();
+    public boolean isBoundary(Wex w) {
+        Wex v0 = wexes.get(0);
+        int size = wexes.size();
         for (int i = 1; i < size; ++i) {
-            Direction d0 = v.dir(v0);
-            Vertex v1 = vertices.get(i % size);
-            Direction d1 = v1.dir(v0);
+            Vertex p = v0.getP();
+            Direction d0 = w.getP().dir(p);
+            Wex v1 = wexes.get(i % size);
+            Direction d1 = v1.getP().dir(p);
             if (Fuzzy.isSmall(d0.outer(d1)) && Util.in(d0.proj(d1), .0, 1.0)) {
                 return true;
             }
@@ -47,26 +38,26 @@ public class D2 {
         return false;
     }
 
-    public LinkedList<Vertex> getVertices() {
-        return vertices;
+    public LinkedList<Wex> getWexes() {
+        return wexes;
     }
 
-    protected void add(Vertex v) {
-        vertices.add(v);
+    protected void add(Wex v) {
+        wexes.add(v);
     }
 
-    public void add(Vertex v, Vertex v0, Vertex v1) {
-        int i0 = vertices.indexOf(v0);
-        int i1 = vertices.indexOf(v1);
+    public void add(Wex v, Wex v0, Wex v1) {
+        int i0 = wexes.indexOf(v0);
+        int i1 = wexes.indexOf(v1);
         if (i0 == -1 || i1 == -1) {
             return;
         }
-        vertices.add(Math.max(i0, i1), v);
+        wexes.add(Math.max(i0, i1), v);
     }
 
     @Deprecated
-    public void setVertices(LinkedList<Vertex> vertices) {
-        this.vertices = vertices;
+    public void setWexes(LinkedList<Wex> wexes) {
+        this.wexes = wexes;
     }
 
 }

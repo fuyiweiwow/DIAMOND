@@ -9,7 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.util.HashSet;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
@@ -24,7 +24,7 @@ import diamond.view.ui.screen.ScreenStep;
  */
 public final class Step extends StepBase implements Graphics {
     private HashSet<SegmentBase> segments = new HashSet<>();
-    private HashSet<Vertex> vertices = new HashSet<>();
+    private HashSet<Wex> vertices = new HashSet<>();
 
     @Deprecated
     public Step() {
@@ -87,17 +87,18 @@ public final class Step extends StepBase implements Graphics {
     private void setVertices() {
         this.vertices.clear();
         for (SegmentBase segment : segments) {
-            vertices.add(segment.getV0());
-            vertices.add(segment.getV1());
+            vertices.add(segment.getW0());
+            vertices.add(segment.getW1());
         }
         for (Face face : faces) {
-            for (Vertex v : face.getVertices()) {
+            for (Wex v : face.getWexes()) {
                 vertices.add(v);
+                v.apply(face.getMirror());
             }
         }
     }
 
-    public HashSet<Vertex> getVertices() {
+    public HashSet<Wex> getVertices() {
         return vertices;
     }
 
@@ -113,7 +114,7 @@ public final class Step extends StepBase implements Graphics {
         edges.add(edge);
     }
 
-    public void link(Face f0, Face f1, Vertex v0, Vertex v1) {
+    public void link(Face f0, Face f1, Wex v0, Wex v1) {
         SegmentEdge edge = new SegmentEdge(f1, f0, v0, v1);
         add(edge);
     }

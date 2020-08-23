@@ -10,10 +10,12 @@ import java.awt.geom.Rectangle2D.Double;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
+import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
@@ -27,38 +29,26 @@ public final class Face extends FaceBase {
         super();
     }
 
-    public Face mirror() {
-        Face face = new Face();
-        face.mirror = mirror;
-        for (Vertex v : vertices) {
-            face.add(mirror.apply(v));
-        }
-        for (SegmentCrease crease : creases) {
-            face.add(crease.mirror());
-        }
-        return face;
-    }
-
     @Override
-    public double dist(Vertex v) {
-        return c().dist(v);
+    public double dist(Vertex v, AbstractScreen screen) {
+        return c(screen).dist(v);
     }
 
     @Override
     public void draw(Graphics2D g2d, ScreenMain screen) {
         setG2d(g2d, screen);
-        GeneralPath polygon = ShapeBuilder.build(this);
+        GeneralPath polygon = ShapeBuilder.build(this, screen);
         g2d.fill(polygon);
         for (SegmentCrease crease : creases) {
             crease.setG2d(g2d, screen);
             crease.draw(g2d, screen);
-            Vertex v0 = crease.getV0();
-            Vertex v1 = crease.getV1();
+            Vertex v0 = screen.v(crease.getW0());
+            Vertex v1 = screen.v(crease.getW1());
             v0.setG2d(g2d, screen);
             v0.draw(g2d, screen);
             v1.draw(g2d, screen);
         }
-        for (Vertex v : vertices) {
+        for (Wex v : wexes) {
             v.setG2d(g2d, screen);
             v.draw(g2d, screen);
         }
@@ -74,10 +64,9 @@ public final class Face extends FaceBase {
     @Override
     public void draw(Graphics2D g2d, ScreenStep screen) {
         setG2d(g2d, screen);
-        Face f = mirror();
-        GeneralPath polygon = ShapeBuilder.build(f);
+        GeneralPath polygon = ShapeBuilder.build(this, screen);
         g2d.fill(polygon);
-        for (SegmentCrease c : f.creases) {
+        for (SegmentCrease c : creases) {
             c.setG2d(g2d, screen);
             c.draw(g2d, screen);
         }
@@ -100,12 +89,13 @@ public final class Face extends FaceBase {
     }
 
     @Override
-    public Double clip() {
+    public Double clip(AbstractScreen screen) {
         double x0 = .0;
         double x1 = .0;
         double y0 = .0;
         double y1 = .0;
-        for (Vertex v : vertices) {
+        for (Wex w : wexes) {
+            Vertex v = screen.v(w);
             double x = v.getX();
             x0 = Math.min(x0, x);
             double y = v.getY();
@@ -115,7 +105,7 @@ public final class Face extends FaceBase {
         }
         double w = x1 - x0;
         double h = y1 - y0;
-        Vertex c = c();
+        Vertex c = c(screen);
         double cx = c.getX();
         double cy = c.getY();
         return new Double(

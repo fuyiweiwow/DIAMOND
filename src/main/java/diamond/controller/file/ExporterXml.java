@@ -25,15 +25,14 @@ import diamond.view.ui.panel.Util;
 public class ExporterXml implements Exporter {
 
     @Override
-    public boolean export(Diagram diagram, JFileChooser chooser) {
-        File file = new File(chooser.getSelectedFile().getPath()
-                + "." + Labels.get("format_name"));
+    public File export(Diagram diagram, String path) {
+        File file = new File(path + "." + Labels.get("format_name"));
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 Util.warn("access_denied");
-                return false;
+                return null;
             }
         }
         try {
@@ -41,12 +40,12 @@ public class ExporterXml implements Exporter {
             output(diagram, out);
         } catch (StackOverflowError e) {
             Util.warn("memory_out");
-            return false;
+            return null;
         } catch (IOException e) {
             Util.warn("failed");
-            return false;
+            return null;
         }
-        return true;
+        return file;
     }
 
     private void output(Diagram diagram, FileOutputStream out)

@@ -4,6 +4,8 @@
  */
 package diamond.controller.file;
 
+import java.io.File;
+
 import javax.swing.JFileChooser;
 
 import diamond.model.cyborg.diagram.Diagram;
@@ -13,7 +15,7 @@ import diamond.model.cyborg.diagram.Diagram;
  *
  */
 public interface Exporter {
-    public boolean export(Diagram diagram, JFileChooser chooser);
+    public File export(Diagram diagram, String path);
 
     public void set(JFileChooser chooser);
 }
