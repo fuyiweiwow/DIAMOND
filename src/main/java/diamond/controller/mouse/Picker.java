@@ -7,9 +7,8 @@ package diamond.controller.mouse;
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.Graphics;
 
 /**
  * @author Kei Morisue
@@ -17,7 +16,7 @@ import diamond.model.cyborg.graphics.Graphics;
  */
 public class Picker {
     private PickerCyborg<Face> faces = new PickerCyborg<>();
-    private PickerCyborg<SegmentBase> segments = new PickerCyborg<>();
+    private PickerCyborg<AbstractSegment> segments = new PickerCyborg<>();
     private PickerCyborg<Wex> vs = new PickerCyborg<>();
 
     public void initialize() {
@@ -27,11 +26,11 @@ public class Picker {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Cyborg & Graphics> PickerCyborg<T> get(Class<T> type) {
+    public <T extends Cyborg> PickerCyborg<T> get(Class<T> type) {
         if (type.equals(Wex.class)) {
             return (PickerCyborg<T>) vs;
         }
-        if (type.equals(SegmentBase.class)) {
+        if (type.equals(AbstractSegment.class)) {
             return (PickerCyborg<T>) segments;
         }
         if (type.equals(Face.class)) {

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d0.Vertex;
 
 /**
@@ -23,7 +22,8 @@ import diamond.model.cyborg.geom.d0.Vertex;
  *
  */
 public abstract class AbstractScreen extends JPanel
-        implements ComponentListener, Observer {
+        implements ComponentListener, Observer,
+        diamond.view.ui.screen.Graphics {
     protected TransformScreen transform = new TransformScreen();
     protected Context context;
 
@@ -50,9 +50,12 @@ public abstract class AbstractScreen extends JPanel
 
     protected abstract void draw(Graphics2D g2d);
 
-    protected abstract void drawPointed(Graphics2D g2d);
+    public abstract void setMouseLocation(Vertex v);
 
-    public abstract Vertex v(Wex w);
+    private void drawPointed(Graphics2D g2d) {
+        draw(g2d, context.getPicker());
+        draw(g2d, context.getPointer());
+    };
 
     public Diagram diagram() {
         return context.getDiagram();

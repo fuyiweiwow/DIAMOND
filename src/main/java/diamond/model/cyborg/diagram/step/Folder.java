@@ -6,7 +6,7 @@ package diamond.model.cyborg.diagram.step;
 
 import java.util.ArrayList;
 
-import diamond.model.cyborg.geom.d1.SegmentEdge;
+import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.geom.m.MirrorComposit;
@@ -33,7 +33,7 @@ public class Folder {
     public void setMirror(Face base, Step step) {
         AbstractMirror mirror = base.getMirror();
         int i = faces.indexOf(base);
-        for (SegmentEdge edge : step.getEdges()) {
+        for (Edge edge : step.getEdges()) {
             Face pair = edge.getPair(base);
             if (pair == null) {
                 continue;
@@ -41,7 +41,7 @@ public class Folder {
             if (pair.getMirror() == null) {
                 int j = faces.indexOf(pair);
                 edge.setType((i - j) < 0 ^ base.isFlip());
-                pair.setMirror(new MirrorComposit(edge, mirror));
+                pair.setMirror(new MirrorComposit(edge.getP(), mirror));
                 setMirror(pair, step);
             }
         }

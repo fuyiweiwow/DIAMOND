@@ -8,7 +8,7 @@ import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.geom.PickerCyborg;
-import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 
 /**
  * @author Kei Morisue
@@ -16,8 +16,8 @@ import diamond.model.cyborg.geom.d1.SegmentBase;
  */
 public class AddSegments extends AbstractPaintState {
     private Context context;
-    private SegmentBase s0;
-    private Stack<SegmentBase> segments;
+    private AbstractSegment s0;
+    private Stack<AbstractSegment> segments;
 
     public AddSegments(Context context) {
         this.context = context;
@@ -45,8 +45,8 @@ public class AddSegments extends AbstractPaintState {
 
     @Override
     protected boolean tryAction() {
-        PickerCyborg<SegmentBase> picker = context
-                .getPicker(SegmentBase.class);
+        PickerCyborg<AbstractSegment> picker = context
+                .getPicker(AbstractSegment.class);
         segments = picker.get();
         return true;
     }

@@ -9,19 +9,19 @@ import java.util.Stack;
 import diamond.model.cyborg.geom.d0.PivotComparator;
 import diamond.model.cyborg.geom.d0.Wex;
 import diamond.model.cyborg.geom.d1.D1;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.Crease;
 
 /**
  * @author Kei Morisue
  *
  */
 public class CreaseAdder {
-    private Stack<SegmentCrease> tobe = new Stack<>();
+    private Stack<Crease> tobe = new Stack<>();
     private Stack<Wex> at0 = new Stack<>();
     private Stack<Wex> at1 = new Stack<>();
 
     public void across(D1 s1, Face face) {
-        for (SegmentCrease s0 : face.getCreases()) {
+        for (Crease s0 : face.getCreases()) {
             Wex[] cp = s0.getSplitterVertices(s1);
             // doesnt across
             if (cp == null) {
@@ -40,7 +40,7 @@ public class CreaseAdder {
         split1(s1);
     }
 
-    private void record(SegmentCrease s1, SegmentCrease s0, Wex cp0,
+    private void record(Crease s1, Crease s0, Wex cp0,
             Wex cp1) {
         // only s0 is splitted
         // Could it be?
@@ -61,7 +61,7 @@ public class CreaseAdder {
         return;
     }
 
-    private void split1(SegmentCrease s1) {
+    private void split1(Crease s1) {
         at1.sort(new PivotComparator(s1.getV0()));
         while (!at1.isEmpty()) {
             Wex v = at1.pop();
@@ -71,7 +71,7 @@ public class CreaseAdder {
 
     private void split0() {
         while (!at0.isEmpty()) {
-            SegmentCrease c = tobe.pop();
+            Crease c = tobe.pop();
             Wex v = at0.pop();
             c.split(v);
         }

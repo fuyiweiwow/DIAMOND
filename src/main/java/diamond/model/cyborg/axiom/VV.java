@@ -5,7 +5,7 @@
 package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.Crease;
 
 /**
  * @author Kei Morisue
@@ -14,7 +14,7 @@ import diamond.model.cyborg.geom.d1.SegmentCrease;
 public class VV extends AxiomGenerator<Wex, Wex> {
 
     @Override
-    SegmentCrease allign(Wex t1, Wex t2) {
+    Crease allign(Wex t1, Wex t2) {
         if (t1 == t2) {
             return null;
         }

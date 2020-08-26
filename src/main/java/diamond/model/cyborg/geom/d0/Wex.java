@@ -4,15 +4,11 @@
  */
 package diamond.model.cyborg.geom.d0;
 
-import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D.Double;
 
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.math.Fuzzy;
-import diamond.view.ui.screen.AbstractScreen;
-import diamond.view.ui.screen.ScreenMain;
-import diamond.view.ui.screen.ScreenStep;
 
 /**
  * @author Kei Morisue
@@ -27,7 +23,7 @@ public class Wex implements Cyborg {
         q = new Vertex(x, y);
     }
 
-    private Wex(Vertex p, Vertex q) {
+    public Wex(Vertex p, Vertex q) {
         this.p = p;
         this.q = q;
     }
@@ -39,10 +35,10 @@ public class Wex implements Cyborg {
         return this;
     }
 
-    public Wex scale(double scale, Vertex vp, Vertex vq) {
+    public Wex scale(double scale, Wex w0) {
         return new Wex(
-                p.scale(scale, vp),
-                q.scale(scale, vq));
+                p.scale(scale, w0.p),
+                q.scale(scale, w0.q));
     }
 
     public Vertex getP() {
@@ -57,38 +53,33 @@ public class Wex implements Cyborg {
         return q;
     }
 
-    //    public void setQ(Vertex q) {
-    //        this.q = q;
-    //    }
-
-    @Override
-    public void draw(Graphics2D g2d, ScreenMain screen) {
-        p.draw(g2d, screen);
+    public void setQ(Vertex q) {
+        this.q = q;
     }
 
     @Override
-    public void setG2d(Graphics2D g2d, ScreenMain screen) {
-        p.setG2d(g2d, screen);
+    public double distP(Vertex v) {
+        return v.dist(p);
     }
 
     @Override
-    public void draw(Graphics2D g2d, ScreenStep screen) {
-        q.draw(g2d, screen);
+    public double distQ(Vertex v) {
+        return v.dist(q);
     }
 
     @Override
-    public void setG2d(Graphics2D g2d, ScreenStep screen) {
-        q.setG2d(g2d, screen);
+    public Double clipP() {
+        return new Double(p.x, p.y, .0, .0);
     }
 
     @Override
-    public double dist(Vertex v, AbstractScreen screen) {
-        return screen.v(this).dist(v);
+    public Double clipQ() {
+        return new Double(q.x, q.y, .0, .0);
     }
 
     @Override
-    public Double clip(AbstractScreen screen) {
-        return screen.v(this).clip();
+    public boolean equals(Object obj) {
+        Wex w0 = (Wex) obj;
+        return w0.p.equals(p);
     }
-
 }

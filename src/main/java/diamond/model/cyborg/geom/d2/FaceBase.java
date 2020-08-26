@@ -7,47 +7,37 @@ package diamond.model.cyborg.geom.d2;
 import java.util.HashSet;
 
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.m.AbstractMirror;
-import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class FaceBase extends D2 implements Cyborg {
-    protected HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
+public abstract class FaceBase implements Cyborg {
+    protected D2 p = new D2();
+    protected D2 q = new D2();
+    protected HashSet<Crease> creases = new HashSet<Crease>();
     protected AbstractMirror mirror = null;
 
-    protected FaceBase() {
-        super();
-    }
-
-    public Vertex c(AbstractScreen screen) {
-        double x = .0;
-        double y = .0;
+    public FaceBase(Wex... wexes) {
         for (Wex w : wexes) {
-            Vertex v = screen.v(w);
-            x += v.getX();
-            y += v.getY();
+            p.add(w.getP());
+            q.add(w.getQ());
         }
-        int n = wexes.size();
-        return new Vertex(x / n, y / n);
     }
 
-    public void remove(SegmentCrease crease) {
+    public void remove(Crease crease) {
         creases.remove(crease);
     }
 
-    // TODO to be deprecated
-    public HashSet<SegmentCrease> getCreases() {
+    public HashSet<Crease> getCreases() {
         return creases;
     }
 
     @Deprecated
-    public void setCreases(HashSet<SegmentCrease> creases) {
+    public void setCreases(HashSet<Crease> creases) {
         this.creases = creases;
     }
 
@@ -61,6 +51,28 @@ public abstract class FaceBase extends D2 implements Cyborg {
 
     public void setMirror(AbstractMirror mirror) {
         this.mirror = mirror;
+    }
+
+    public void add(Wex... vs) {
+
+    }
+
+    public D2 getP() {
+        return p;
+    }
+
+    @Deprecated
+    public void setP(D2 p) {
+        this.p = p;
+    }
+
+    public D2 getQ() {
+        return q;
+    }
+
+    @Deprecated
+    public void setQ(D2 q) {
+        this.q = q;
     }
 
 }

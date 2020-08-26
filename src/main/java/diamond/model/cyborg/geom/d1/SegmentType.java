@@ -9,7 +9,7 @@ package diamond.model.cyborg.geom.d1;
  *
  */
 public enum SegmentType {
-    CREASE, CREASE_VALLEY, CREASE_MOUNTAIN, VALLEY, MOUNTAIN;
+    CREASE, CREASE_VALLEY, CREASE_MOUNTAIN, VALLEY, MOUNTAIN, CUT;
 
     public static SegmentType flip(SegmentType type) {
         switch (type) {

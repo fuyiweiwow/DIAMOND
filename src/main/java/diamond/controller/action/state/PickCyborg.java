@@ -8,7 +8,7 @@ import diamond.controller.Context;
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.PointerCyborg;
-import diamond.model.cyborg.graphics.Graphics;
+import diamond.view.ui.screen.Graphics;
 
 /**
  * @author Kei Morisue

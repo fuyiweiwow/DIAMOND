@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.controller.action.state.AddSegment;
 import diamond.controller.action.state.PickCyborg;
-import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 
 /**
  * @author Kei Morisue
@@ -19,7 +19,7 @@ public class PaintMirror extends AbstractPaintActionMouse {
 
     public PaintMirror(Context context) {
         initialize(
-                new PickCyborg<SegmentBase>(context, SegmentBase.class),
+                new PickCyborg<AbstractSegment>(context, AbstractSegment.class),
                 new AddSegment(context));
     }
 

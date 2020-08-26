@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleVertex;
+import diamond.model.math.Fuzzy;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
@@ -18,7 +19,6 @@ import diamond.view.ui.screen.draw.G2DUtil;
  *
  */
 public class Vertex extends D0 {
-    @Deprecated
     public Vertex() {
     }
 
@@ -77,5 +77,11 @@ public class Vertex extends D0 {
                 y - size,
                 size * 2,
                 size * 2);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Vertex v0 = (Vertex) obj;
+        return Fuzzy.isSmall(dir(v0).norm());
     }
 }

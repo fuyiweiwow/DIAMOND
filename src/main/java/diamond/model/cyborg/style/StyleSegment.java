@@ -20,7 +20,7 @@ public class StyleSegment {
     final public static Color COLOR_VALLEY = Color.BLUE;
     final public static Color COLOR_MOUNTAIN = Color.RED;
     final public static Color POINTED = Color.GREEN;
-    final public static Color COLOR_EDGE = Color.BLACK;
+    final public static Color COLOR_CUT = Color.BLACK;
     final public static Color COLOR_CREASE = Color.GRAY;
     final public static Color COLOR_STEP_CREASE = Color.BLACK;
     private float widthEdge = 3.0f;
@@ -55,6 +55,8 @@ public class StyleSegment {
         case CREASE_VALLEY:
         case VALLEY:
             return COLOR_VALLEY;
+        case CUT:
+            return COLOR_CUT;
         default:
             return COLOR_CREASE;
         }

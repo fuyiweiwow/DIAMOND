@@ -4,32 +4,22 @@
  */
 package diamond.model.cyborg.geom;
 
-import java.awt.Graphics2D;
 import java.util.Collection;
 import java.util.Observable;
 
 import diamond.Config;
 import diamond.controller.Context;
-import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.Graphics;
-import diamond.model.cyborg.style.StyleFace;
-import diamond.model.cyborg.style.StyleSegment;
-import diamond.model.cyborg.style.StyleVertex;
 import diamond.model.math.Fuzzy;
-import diamond.view.ui.screen.ScreenMain;
-import diamond.view.ui.screen.ScreenStep;
-import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PointerCyborg<T extends Cyborg> extends Observable
-        implements Graphics {
+public class PointerCyborg<T extends Cyborg> extends Observable {
     private T pointed;
     private Class<T> type;
 
@@ -65,7 +55,7 @@ public class PointerCyborg<T extends Cyborg> extends Observable
         if (type == Wex.class) {
             return (Collection<T>) step.getVertices();
         }
-        if (type == SegmentBase.class) {
+        if (type == AbstractSegment.class) {
             return (Collection<T>) step.getSegments();
         }
         return null;//TODO
@@ -80,41 +70,6 @@ public class PointerCyborg<T extends Cyborg> extends Observable
 
     public T get() {
         return pointed;
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, ScreenMain screen) {
-        if (pointed == null) {
-            return;
-        }
-        pointed.draw(g2d, screen);
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, ScreenMain screen) {
-        if (type == Face.class) {
-            g2d.setColor(StyleFace.POINTED);
-            return;
-        }
-        if (type == Wex.class) {
-            g2d.setColor(StyleVertex.POINTED);
-            return;
-        }
-        Diagram diagram = screen.diagram();
-        if (type == SegmentBase.class) {
-            g2d.setStroke(diagram.getStyleSegment()
-                    .strokePointed((float) G2DUtil.getScale(g2d)));
-            g2d.setColor(StyleSegment.POINTED);
-            return;
-        }
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, ScreenStep screen) {
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, ScreenStep screen) {
     }
 
 }

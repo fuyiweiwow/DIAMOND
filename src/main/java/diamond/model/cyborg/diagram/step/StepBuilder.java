@@ -6,7 +6,7 @@ package diamond.model.cyborg.diagram.step;
 
 import diamond.Config;
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.d2.FaceBuilder;
@@ -40,7 +40,7 @@ public class StepBuilder {
         @SuppressWarnings("deprecation")
         Step step = new Step();
         Face square = FaceBuilder.polygon(UR, UL, BL, BR);
-        SegmentCrease e = new SegmentCrease(
+        Crease e = new Crease(
                 UR,
                 BL,
                 SegmentType.CREASE_VALLEY);
@@ -55,7 +55,7 @@ public class StepBuilder {
         Step step = new Step();
 
         Face f0 = FaceBuilder.polygon(O, L, BL, B);
-        f0.add(new SegmentCrease(O, BL, SegmentType.CREASE));
+        f0.add(new Crease(O, BL, SegmentType.CREASE));
         Face f2 = FaceBuilder.polygon(O, UL, L);
         step.link(f0, f2, O, L);
         Face f4 = FaceBuilder.polygon(O, B, BR);
@@ -69,7 +69,7 @@ public class StepBuilder {
         step.link(f1, f3, O, U);
         step.link(f1, f5, O, R);
 
-        f1.add(new SegmentCrease(O, UR, SegmentType.CREASE));
+        f1.add(new Crease(O, UR, SegmentType.CREASE));
 
         step.add(f0);
         step.add(f2);
@@ -91,8 +91,8 @@ public class StepBuilder {
         step.link(f0, f3, LL, BB);
         step.link(f0, f1, BL, BB);
         step.link(f0, f2, BL, LL);
-        f1.add(new SegmentCrease(B, BB, SegmentType.CREASE));
-        f2.add(new SegmentCrease(L, LL, SegmentType.CREASE));
+        f1.add(new Crease(B, BB, SegmentType.CREASE));
+        f2.add(new Crease(L, LL, SegmentType.CREASE));
 
         Face f4 = FaceBuilder.polygon(BR, UR, RR);
         Face f5 = FaceBuilder.polygon(BR, RR, O);
@@ -101,7 +101,7 @@ public class StepBuilder {
         step.link(f3, f6, O, BB);
         step.link(f6, f5, O, BR);
         step.link(f5, f4, BR, RR);
-        f4.add(new SegmentCrease(R, RR, SegmentType.CREASE));
+        f4.add(new Crease(R, RR, SegmentType.CREASE));
 
         Face f9 = FaceBuilder.polygon(UL, LL, O);
         Face f10 = FaceBuilder.polygon(UL, O, UU);
@@ -110,7 +110,7 @@ public class StepBuilder {
         step.link(f3, f9, O, LL);
         step.link(f9, f10, O, UL);
         step.link(f10, f11, UL, UU);
-        f11.add(new SegmentCrease(U, UU, SegmentType.CREASE));
+        f11.add(new Crease(U, UU, SegmentType.CREASE));
 
         Face f12 = FaceBuilder.polygon(O, RR, UU);
         Face f14 = FaceBuilder.polygon(UR, UU, RR);

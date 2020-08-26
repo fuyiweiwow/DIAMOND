@@ -7,7 +7,7 @@ package diamond.model.cyborg.diagram.step;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import diamond.model.cyborg.geom.d1.SegmentEdge;
+import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 import diamond.view.ui.screen.TransformScreen;
@@ -18,7 +18,7 @@ import diamond.view.ui.screen.TransformScreen;
  */
 public abstract class StepBase {
     protected ArrayList<Face> faces = new ArrayList<>();
-    protected HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
+    protected HashSet<Edge> edges = new HashSet<Edge>();
     protected ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     protected TransformScreen transform = new TransformScreen();
     protected Face base;
@@ -71,12 +71,12 @@ public abstract class StepBase {
         this.base = base;
     }
 
-    public HashSet<SegmentEdge> getEdges() {
+    public HashSet<Edge> getEdges() {
         return edges;
     }
 
     @Deprecated
-    public void setEdges(HashSet<SegmentEdge> edges) {
+    public void setEdges(HashSet<Edge> edges) {
         this.edges = edges;
     }
 }

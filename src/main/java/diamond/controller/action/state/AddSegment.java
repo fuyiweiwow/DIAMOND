@@ -10,7 +10,7 @@ import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d2.CreaseAdder;
 import diamond.model.cyborg.geom.d2.Face;
 
@@ -35,7 +35,7 @@ public class AddSegment extends AbstractPaintState {
     protected void executeAction() {
         Step step = context.getDiagram().getStep();
         Face face = step.getFaces().get(0);//TODO
-        SegmentCrease crease = new SegmentCrease(v0, v1, context.getType());
+        Crease crease = new Crease(v0, v1, context.getType());
         new CreaseAdder().across(crease, face);
         step.update();
         context.initialize();

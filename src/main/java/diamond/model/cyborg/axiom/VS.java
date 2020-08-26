@@ -5,17 +5,17 @@
 package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Wex;
-import diamond.model.cyborg.geom.d1.SegmentBase;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.Crease;
 
 /**
  * @author Kei Morisue
  *
  */
-public class VS extends AxiomGenerator<Wex, SegmentBase> {
+public class VS extends AxiomGenerator<Wex, AbstractSegment> {
 
     @Override
-    SegmentCrease allign(Wex t1, SegmentBase t2) {
+    Crease allign(Wex t1, AbstractSegment t2) {
         return null;
     }
 

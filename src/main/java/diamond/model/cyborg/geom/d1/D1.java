@@ -13,7 +13,7 @@ import diamond.model.math.Util;
  * @author Kei Morisue
  *
  */
-public class D1 {
+public final class D1 {
     protected Vertex v0;
     protected Vertex v1;
 
@@ -51,7 +51,11 @@ public class D1 {
     }
 
     public Vertex c() {
-        return dir().scale(.5).ver(v0);
+        return this.scale(.5);
+    }
+
+    public Vertex scale(double p) {
+        return dir().scale(p).ver(v0);
     }
 
     public Direction dir() {

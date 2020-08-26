@@ -7,15 +7,19 @@ package diamond.model.cyborg.geom;
 import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.graphics.Graphics;
-import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public interface Cyborg extends Graphics {
-    public double dist(Vertex v, AbstractScreen screen);
+public interface Cyborg {
 
-    public Rectangle2D.Double clip(AbstractScreen screen);
+    public double distP(Vertex v);
+
+    public double distQ(Vertex v);
+
+    public Rectangle2D.Double clipP();
+
+    public Rectangle2D.Double clipQ();
+
 }

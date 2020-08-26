@@ -47,7 +47,7 @@ public final class ScreenActionPaint extends AbstractScreenAction {
         Vertex v = Util.getLogicalPoint(
                 screen.getTransform(),
                 e.getPoint());
-        context.setPointed(v);
+        screen.setMouseLocation(v);
         context.getPaintAction().onMove();
     }
 
